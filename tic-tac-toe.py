@@ -1,48 +1,54 @@
-dict = {
-    "pos1": "1", 
-    "pos2": "2", 
-    "pos3": "3",
-    "pos4": "4",
-    "pos5": "5",
-    "pos6": "6",
-    "pos7": "7",
-    "pos8": "8",
-    "pos9": "9",
-}
- 
+# Week 2 - Tic Tac Toe
+# Anna Varner - CSE 210
+
+
 
 def main():   
-    player = next_player("")
-    board = drawgrid(dict)
-    while not (winner(board) or tie(board)):
-        drawgrid(board)
-        move(player, board)
-        player = next_player(player)
-    drawgrid(board)
-    print("Thanks for playing!")
+    play_again = "y"
+    while play_again == "y" or play_again == "Y":
+        player = next_player("")
+        board = drawgrid()
+        while not (winner(board) or tie(board)):
+            display_board(board)
+            move(player, board)
+            player = next_player(player)
+        display_board(board)
+        play_again = input("Game over! Would you like to play again? (y/n): ")
 
-def drawgrid(dict):
-    print(dict["pos1"] + " | " + dict["pos2"] + " | " + dict["pos3"])
-    print("- + - + -")
-    print(dict["pos4"] + " | " + dict["pos5"] + " | " + dict["pos6"])
-    print("- + - + -")
-    print(dict["pos7"] + " | " + dict["pos8"] + " | " + dict["pos9"])
+def drawgrid():
+    board = []
+    for square in range(9):
+        board.append(square + 1)
+    return board
 
-def tie(dict):
-    for i in range(dict[i]):
-        if dict[i] != "x" and dict[i] != "o":
+def display_board(board):
+    print()
+    print(f"{board[0]} | {board[1]} | {board[2]}")
+    print('- + - + -')
+    print(f"{board[3]} | {board[4]} | {board[5]}")
+    print('- + - + -')
+    print(f"{board[6]} | {board[7]} | {board[8]}")
+    print()
+
+def tie(board):
+    for square in range(9):
+        if board[square] != "x" and board[square] != "o":
             return False
+    print()
+    print("------------")        
+    print("It's a tie!")
     return True 
 
 def winner(board):
-    return (dict["pos1"] == dict["pos2"] == dict["pos3"] or
-            dict["pos4"] == dict["pos5"] == dict["pos6"] or
-            dict["pos7"] == dict["pos8"] == dict["pos9"] or
-            dict["pos1"] == dict["pos4"] == dict["pos7"] or
-            dict["pos2"] == dict["pos5"] == dict["pos8"] or
-            dict["pos3"] == dict["pos6"] == dict["pos9"] or
-            dict["pos1"] == dict["pos5"] == dict["pos9"] or
-            dict["pos3"] == dict["pos5"] == dict["pos7"])
+    return (board[0] == board[1] == board[2] or
+            board[3] == board[4] == board[5] or
+            board[6] == board[7] == board[8] or
+            board[0] == board[3] == board[6] or
+            board[1] == board[4] == board[7] or
+            board[2] == board[5] == board[8] or
+            board[0] == board[4] == board[8] or
+            board[2] == board[4] == board[6])
+
 
 
 def move(player, board):
@@ -55,10 +61,6 @@ def next_player(current):
         return "x"
     elif current == "x":
         return "o"
-
-
-
-
 
 
 
